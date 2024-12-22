@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orderapp
-          image: drakenevadie19/order-service:latest-Dec-18-1-AM
+          image: drakenevadie19/order-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9094
