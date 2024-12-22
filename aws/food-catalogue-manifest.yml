@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: foodcatalogueapp
-          image: drakenevadie19/food-catalogue-service:latest-Dec-18-1AM
+          image: drakenevadie19/food-catalogue-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9092 
