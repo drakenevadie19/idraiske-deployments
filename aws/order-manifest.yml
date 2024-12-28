@@ -16,9 +16,12 @@ spec:
         - name: orderapp
           image: drakenevadie19/order-service:latest
           imagePullPolicy: Always
+          # restartPolicy: OnFailure
           ports:
             - containerPort: 9094
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev"
             - name: JAVA_TOOL_OPTIONS
               value: "-Djdk.tls.client.protocols=TLSv1.2"
             - name: SPRING_DATA_MONGODB_URI
@@ -28,7 +31,6 @@ spec:
                   key: orderdb_url
             - name: SPRING_DATA_MONGODB_DATABASE
               value: "orderdb"
-
 ---
 apiVersion: v1
 kind: Service
