@@ -18,9 +18,17 @@ spec:
         - name: userapp
           image: drakenevadie19/user-service:latest
           imagePullPolicy: Always
+          # restartPolicy: OnFailure
           ports:
             - containerPort: 9093
           env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev"
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: userdb_url
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -31,11 +39,6 @@ spec:
                 secretKeyRef:
                   name: secret
                   key: mysql-password
-            - name: SPRING_DATASOURCE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: configmap
-                  key: userdb_url
 ---
 apiVersion: v1
 kind: Service
