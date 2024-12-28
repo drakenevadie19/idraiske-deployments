@@ -18,10 +18,17 @@ spec:
         - name: foodcatalogueapp
           image: drakenevadie19/food-catalogue-service:latest
           imagePullPolicy: Always
+          # restartPolicy: OnFailure
           ports:
             - containerPort: 9092 
-
           env: # Environment variables supplied to the Pod
+            - name: SPRING_PROFILES_ACTIVE
+              value: "dev"
+            - name: SPRING_DATASOURCE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: configmap
+                  key: foodcataloguedb_url
             - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
               valueFrom: # Get the value of environment variable from kubernetes secrets
                 secretKeyRef:
@@ -32,11 +39,6 @@ spec:
                 secretKeyRef:
                   name: secret
                   key: mysql-password
-            - name: SPRING_DATASOURCE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: configmap
-                  key: foodcataloguedb_url
 ---
 apiVersion: v1
 kind: Service
